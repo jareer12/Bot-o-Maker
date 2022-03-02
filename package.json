@@ -1,0 +1,30 @@
+{
+  "name": "bot-o-maker",
+  "version": "1.0.0",
+  "description": "A good panel to create a discord bot without need of code, simple configs.",
+  "main": "index.js",
+  "scripts": {
+    "tailwinds": "npx tailwindcss -i ./assets/build.css -o ./assets/tailwinds.css --watch --minify"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jareer12/Bot-o-Maker.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jareer12/Bot-o-Maker/issues"
+  },
+  "homepage": "https://github.com/jareer12/Bot-o-Maker#readme",
+  "devDependencies": {
+    "tailwindcss": "^3.0.23"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "fs": "^0.0.1-security",
+    "mysql": "^2.18.1",
+    "mysql2": "^2.3.3"
+  }
+}

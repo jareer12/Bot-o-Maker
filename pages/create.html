@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="icon" href="./assets/logo.svg">
+    <link rel="stylesheet" href="./assets/main.css">
+    <link rel="stylesheet" href="./assets/tailwinds.css">
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Let's Create A Discord Bot</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+</head>
+
+<body class="bg-bray-700">
+    <div class="flex grid grid-cols-12 flex-wrap w-full h-screen">
+        <div class="sticky md:block hidden md:col-span-2 h-full shadow-md bg-bray-600 px-1">
+            <ul class="relative">
+                <li class="relative px-2">
+                    <a class="flex space-x-4 items-center mt-2 text-sm px-3 py-3 overflow-hidden text-gray-200 text-ellipsis whitespace-nowrap rounded hover:text-amethyst hover:bg-bray-500 transition duration-300 ease-in-out"
+                        href="../">
+                        <img src="./assets/logo.svg" class="w-8 h-8">
+                        <span>Home</span>
+                    </a>
+                </li>
+                <li class="relative px-2">
+                    <a class="flex items-center mt-2 space-x-4 text-sm px-3 py-3 overflow-hidden text-gray-200 text-ellipsis whitespace-nowrap rounded hover:text-amethyst hover:bg-bray-500 transition duration-300 ease-in-out"
+                        href="../manage">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd"
+                                d="M2 5a2 2 0 012-2h12a2 2 0 012 2v2a2 2 0 01-2 2H4a2 2 0 01-2-2V5zm14 1a1 1 0 11-2 0 1 1 0 012 0zM2 13a2 2 0 012-2h12a2 2 0 012 2v2a2 2 0 01-2 2H4a2 2 0 01-2-2v-2zm14 1a1 1 0 11-2 0 1 1 0 012 0z"
+                                clip-rule="evenodd" />
+                        </svg>
+                        <span>Manage Bots</span>
+                    </a>
+                </li>
+                <li class="relative px-2">
+                    <a class="flex items-center mt-2 space-x-4 text-sm px-3 py-3 overflow-hidden text-gray-200 text-ellipsis whitespace-nowrap rounded hover:text-amethyst hover:bg-bray-500 transition duration-300 ease-in-out"
+                        href="../create">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+                        </svg>
+                        <span>Create Bot</span>
+                    </a>
+                </li>
+                <li class="relative px-2">
+                    <a class="flex items-center mt-2 space-x-4 text-sm px-3 py-3 overflow-hidden text-gray-200 text-ellipsis whitespace-nowrap rounded hover:text-amethyst hover:bg-bray-500 transition duration-300 ease-in-out"
+                        href="../settings">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                        <span>Settings</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="md:col-span-10 col-span-12 px-3 py-3 flex flex-wrap w-full" id="create_bot_pane">
+            <div class="w-full grid grid-cols-1">
+                <div class="w-full grid lg:grid-cols-2 grid-cols-1 gap-5">
+                    <div>
+                        <div class="space-y-3 bg-bray-600 py-3 px-3 rounded-md">
+                            <input type="text" placeholder="Enter Bot Name"
+                                class="hover:border-amethyst  focus:border-amethyst focus:outline-none text-gray-300 text-sm border-transparent border placeholder-gray-300 hover:placeholder-gray rounded-lg bg-bray-500 py-3 px-3 w-full">
+                            <input type="text" placeholder="Enter Bot Token(Secret)"
+                                class="hover:border-amethyst  focus:border-amethyst focus:outline-none text-gray-300 text-sm border-transparent border placeholder-gray-300 hover:placeholder-gray rounded-lg bg-bray-500 py-3 px-3 w-full">
+                            <input type="text" placeholder="Enter Bot Prefix"
+                                class="hover:border-amethyst  focus:border-amethyst focus:outline-none text-gray-300 text-sm border-transparent border placeholder-gray-300 hover:placeholder-gray rounded-lg bg-bray-500 py-3 px-3 w-full">
+                            <button class="bg-amethyst rounded-md px-12 py-2 text-gray-300">Create!</button>
+                        </div>
+                        <div class="mt-3 space-y-3 bg-bray-600 py-3 px-3 rounded-md">
+                            <h3 class="flex items-center text-gray-300 space-x-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20"
+                                    fill="currentColor">
+                                    <path
+                                        d="M3 12v3c0 1.657 3.134 3 7 3s7-1.343 7-3v-3c0 1.657-3.134 3-7 3s-7-1.343-7-3z" />
+                                    <path
+                                        d="M3 7v3c0 1.657 3.134 3 7 3s7-1.343 7-3V7c0 1.657-3.134 3-7 3S3 8.657 3 7z" />
+                                    <path d="M17 5c0 1.657-3.134 3-7 3S3 6.657 3 5s3.134-3 7-3 7 1.343 7 3z" />
+                                </svg>
+                                <span>SQL Database Status</span>
+                            </h3>
+                            <h3 class="text-sm flex items-center text-gray-300 space-x-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                </svg>
+                                <span>Data(MBs): <span>12</span></span>
+                            </h3>
+                            <h3 class="text-sm flex items-center text-gray-300 space-x-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20"
+                                    fill="currentColor">
+                                    <path
+                                        d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
+                                </svg>
+                                <span>Bots: <span>12</span></span>
+                            </h3>
+                        </div>
+                    </div>
+                    <div class="sticky">
+                        <div class="space-y-3 bg-bray-600 py-3 px-3 rounded-md">
+                            <div class="text-gray-300 text-sm w-full px-3 py-3 grid grid-cols-2 bg-bray-500 rounded-md">
+                                <div class="flex items-center space-x-1">
+                                    <span class="text-emerald font-bold rounded-full">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none"
+                                            viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+                                    </span>
+                                    <h1 class="py-1">Bot Name</h1>
+                                </div>
+                                <div>
+                                    <a href="" class="bg-amethyst rounded-md px-3 py-1 float-right">Manage</a>
+                                </div>
+                            </div>
+                            <div class="text-gray-300 text-sm w-full px-3 py-3 grid grid-cols-2 bg-bray-500 rounded-md">
+                                <div class="flex items-center space-x-1">
+                                    <span class="text-valencia rounded-full">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20"
+                                            fill="currentColor">
+                                            <path fill-rule="evenodd"
+                                                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                                                clip-rule="evenodd" />
+                                        </svg>
+                                    </span>
+                                    <h1 class="py-1">Bot Name</h1>
+                                </div>
+                                <div>
+                                    <a href="" class="bg-amethyst rounded-md px-3 py-1 float-right">Manage</a>
+                                </div>
+                            </div>
+                            <div class="text-gray-300 text-sm w-full px-3 py-3 grid grid-cols-2 bg-bray-500 rounded-md">
+                                <div class="flex items-center space-x-1">
+                                    <span class="text-gold rounded-full">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none"
+                                            viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                                        </svg>
+                                    </span>
+                                    <h1 class="py-1">Bot Name</h1>
+                                </div>
+                                <div>
+                                    <a href="" class="bg-amethyst rounded-md px-3 py-1 float-right">Manage</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <canvas id="myChart" class="w-full h-full"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="./assets/main.js"></script>
+
+</html>
