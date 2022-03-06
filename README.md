@@ -4,7 +4,7 @@ A good panel to create a discord bot without need of code, simple configs.
 
 ## Requirements
 
-✔️ MySQL
+✔️ MySQL<br>
 ✔️ Node.js
 
 ## Installation
