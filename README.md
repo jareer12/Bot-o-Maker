@@ -1,6 +1,6 @@
 # Bot-o-Maker
 
-A good panel to create a discord bot without need of code, simple configs.
+A good panel to create & host a discord bot without need of code, simple configs.
 
 ## Requirements
 
