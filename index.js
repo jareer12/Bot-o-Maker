@@ -341,7 +341,6 @@ App.get("/compile", (req, res) => {
           );
         } else {
           let Code = Compiler.Compile(result[0]);
-          data["token"] = "YOUR_TOKEN_WAS_HIDDEN_BY_JPANEL_TO_PREVENT_HACKING";
           if (fs.existsSync(`./bots/${req.query.id}`)) {
             if (fs.existsSync(`./bots/${req.query.id}/index.js`)) {
               fs.writeFile(
@@ -408,7 +407,6 @@ App.get("/manage/:id", async (req, res) => {
           Data["Censoredtoken"] = `${censor(
             Data["token"].substring(Data["token"] - 4)
           )}${Data["token"].substring((0, Data["token"].length - 6))}`;
-          Data["token"] = "YOUR_TOKEN_WAS_HIDDEN_BY_JPANEL_TO_PREVENT_HACKING";
           res.render(`${__dirname}/pages/manage-bot.html`, {
             Data: JSON.stringify(results[0]),
           });

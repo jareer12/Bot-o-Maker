@@ -29,7 +29,7 @@ function memeFeature(yes) {
 
 function banFeature(yes) {
   if (yes) {
-    return `  if (message.content === "ban") {
+    return `if (message.content == PREFIX + "ban") {
     if (!message.member.roles.some((r) => ["Administrator"].includes(r.name)))
       return message.reply("Sorry, you don't have permissions to use this!");
 
@@ -96,13 +96,11 @@ function pingFeature(yes) {
     const m = await message.channel.send("Ping?");
     m.edit(
       "Pong! Latency is " +
-        m.createdTimestamp -
-        message.createdTimestamp +
-        "ms. API Latency is " +
-        Math.round(client.ping) +
+        (parseInt(new Date().getTime()) - parseInt(m.createdTimestamp)) +
         "ms"
     );
-  }`;
+  }
+  `;
   } else {
     return "";
   }
@@ -110,8 +108,19 @@ function pingFeature(yes) {
 
 function pollFeature(yes) {
   if (yes) {
-    return `if (message.content.startsWith(PREFIX + "poll")) {
-    let question = message.content.split(" ")[1];
+    return `
+    
+      if (message.content.startsWith(PREFIX + "poll")) {
+    let question = message.content.slice((PREFIX + "poll").length);
+    if (!question) {
+      const embed = new Discord.MessageEmbed()
+        .setColor(Config.color_embed)
+        .setDescription(question)
+        .setFooter("Please enter something to poll for.");
+
+      message.channel.send(embed);
+      return;
+    }
     const embed = new Discord.MessageEmbed()
       .setColor(Config.color_embed)
       .setDescription(question)
@@ -123,7 +132,8 @@ function pollFeature(yes) {
       .then(() => message.react("👎"))
       .then(() => message.react("🤷"))
       .catch(() => console.error("Emoji failed to react."));
-  }`;
+  }
+  `;
   } else {
     return "";
   }
@@ -149,7 +159,7 @@ client.on("ready", () => {
 });
 });
 
-client.on("message", (message) => {
+client.on("message", async (message) => {
   if (message.author.bot) return;
   ${memeFeature(Data.memes_feature || false)}
   ${pollFeature(Data.poll_feature || false)}
