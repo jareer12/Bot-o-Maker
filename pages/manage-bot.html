@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="icon" href="../assets/logo.svg">
+    <link rel="stylesheet" href="../assets/main.css">
+    <link rel="stylesheet" href="../assets/tailwinds.css">
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JPanel Dashboard - Let's Build A Discord Bot</title>
+
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+</head>
+<data id="bot-data" class="hidden">
+    <%= Data %>
+</data>
+
+<body class="bg-bray-700 text-gray-200 text-sm">
+    <div class="flex grid grid-cols-12 flex-wrap w-full h-screen">
+        <div class="sticky md:block hidden md:col-span-2 h-full shadow-md bg-bray-600 px-1">
+            <ul class="relative">
+                <li class="relative px-2">
+                    <a class="flex space-x-4 items-center mt-2 text-sm px-3 py-3 overflow-hidden text-gray-200 text-ellipsis whitespace-nowrap rounded hover:text-amethyst hover:bg-bray-500 transition duration-300 ease-in-out"
+                        href="../">
+                        <img src="../assets/logo.svg" class="w-8 h-8">
+                        <span tip="JPanel, Cool name right?">JPanel</span>
+                    </a>
+                </li>
+                <li class="relative px-2">
+                    <a class="flex items-center mt-2 space-x-4 text-sm px-3 py-3 overflow-hidden text-gray-200 text-ellipsis whitespace-nowrap rounded hover:text-amethyst hover:bg-bray-500 transition duration-300 ease-in-out"
+                        href="../">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                        </svg>
+                        <span>Home</span>
+                    </a>
+                </li>
+                <li class="relative px-2">
+                    <a class="flex items-center mt-2 space-x-4 text-sm px-3 py-3 overflow-hidden text-gray-200 text-ellipsis whitespace-nowrap rounded hover:text-amethyst hover:bg-bray-500 transition duration-300 ease-in-out"
+                        href="../manage">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01" />
+                        </svg>
+                        <span>Manage Bots</span>
+                    </a>
+                </li>
+                <li class="relative px-2">
+                    <a class="flex items-center mt-2 space-x-4 text-sm px-3 py-3 overflow-hidden text-gray-200 text-ellipsis whitespace-nowrap rounded hover:text-amethyst hover:bg-bray-500 transition duration-300 ease-in-out"
+                        href="../create">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+                        </svg>
+                        <span>Create Bot</span>
+                    </a>
+                </li>
+                <li class="relative px-2">
+                    <a class="flex items-center mt-2 space-x-4 text-sm px-3 py-3 overflow-hidden text-gray-200 text-ellipsis whitespace-nowrap rounded hover:text-amethyst hover:bg-bray-500 transition duration-300 ease-in-out"
+                        href="../settings">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                        <span>Settings</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="md:col-span-10 col-span-12 px-3 py-3 flex flex-wrap w-full" id="create_bot_pane">
+            <div class="w-full grid grid-cols-1">
+                <div class="w-full grid lg:grid-cols-2 grid-cols-1 gap-5">
+                    <div class="flex flex-col col-span-2">
+                        <div
+                            class="flex flex-wrap cols-span-2 grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 py-3 px-3 bg-bray-500 rounded-md mb-5 w-full">
+                            <div class="py-3 px-3 bg-bray-600 rounded-md">
+                                <h1 class="text-gray-300 flex items-center space-x-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="text-amethyst h-6 w-6" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M9.879 16.121A3 3 0 1012.015 11L11 14H9c0 .768.293 1.536.879 2.121z" />
+                                    </svg>
+                                    <span class="text-amethyst" id="cpu_usage">Loading...</span> <span
+                                        class="">Ram</span>
+                                </h1>
+                            </div>
+                            <div class="py-3 px-3 bg-bray-600 rounded-md">
+                                <h1 class="text-gray-300 flex items-center space-x-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="text-amethyst h-6 w-6" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9" />
+                                    </svg>
+                                    <span class="text-amethyst" id="bot_size">Loading...</span> <span
+                                        class="">Bot(s)</span>
+                                </h1>
+                            </div>
+                            <div class="py-3 px-3 bg-bray-600 rounded-md">
+                                <h1 class="text-gray-300 flex items-center space-x-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="text-amethyst h-6 w-6" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" />
+                                    </svg>
+                                    <span class="text-amethyst" id="db_size">Loading...</span> <span class="">MySQL
+                                        Size</span>
+                                </h1>
+                            </div>
+                        </div>
+                        <div class="w-full">
+                            <div class="w-full">
+                                <div class="space-y-3 overflow-hidden shadow-md sm:rounded-lg">
+                                    <div class="grid py-1 grid-cols-1 w-full">
+                                        <div class="">
+                                            <h1 class="text-lg font-semibold">Bot Token</h1>
+                                        </div>
+                                    </div>
+                                    <div class="grid py-1 grid-cols-1 w-full">
+                                        <div class="container w-full flex justify-center items-center">
+                                            <div class="relative w-full">
+                                                <div class="absolute top-4 left-3 w-full">
+                                                    <i
+                                                        class="fa fa-search text-gray-400 w-full z-20 hover:text-gray-500"></i>
+                                                </div>
+                                                <input id="token_display" value="" type="password"
+                                                    class="h-14 px-3 bg-bray-500 uppercase w-full rounded-lg z-0 focus:shadow focus:outline-none"
+                                                    placeholder="BOT TOKEN">
+                                                <div class="absolute top-2 right-2">
+                                                    <button onclick="update_token()"
+                                                        class="h-10 px-12 text-white rounded-lg bg-amethyst hover:bg-amethyst-600">Save</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="grid py-1 grid-cols-1 w-full">
+                                        <div class="">
+                                            <h1 class="text-lg font-semibold">Bot Prefix</h1>
+                                        </div>
+                                    </div>
+                                    <div class="grid py-1 grid-cols-1 w-full">
+                                        <div class="container w-full flex justify-center items-center">
+                                            <div class="relative w-full">
+                                                <div class="absolute top-4 left-3 w-full">
+                                                    <i
+                                                        class="fa fa-search text-gray-400 w-full z-20 hover:text-gray-500"></i>
+                                                </div>
+                                                <input id="prefix_display" value="" type="text"
+                                                    class="h-14 px-3 bg-bray-500 w-full rounded-lg z-0 focus:shadow focus:outline-none"
+                                                    placeholder="BOT PREFIX">
+                                                <div class="absolute top-2 right-2">
+                                                    <button onclick="update_prefix()"
+                                                        class="h-10 px-12 text-white rounded-lg bg-amethyst hover:bg-amethyst-600">Save</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="grid py-1 grid-cols-1 w-full">
+                                        <div class="">
+                                            <h3 class="rounded-md py-2 p-3 bg-bray-500">Please press
+                                                <strong>compile</strong> after changes so the panel can
+                                                compile new bot
+                                                code.
+                                            </h3>
+                                        </div>
+                                    </div>
+                                    <div class="grid py-1 grid-cols-1 w-full">
+                                        <div class="">
+                                            <h1 class="text-xl font-semibold">Fun</h1>
+                                        </div>
+                                    </div>
+                                    <div class="grid py-1 grid-cols-2 w-full">
+                                        <div class="">
+                                            <h1>Memes</h1>
+                                        </div>
+                                        <div>
+                                            <div class="form-check float-right">
+                                                <input
+                                                    class="form-check-input appearance-none h-5 w-10 rounded-sm bg-white checked:bg-green-600 bg-red-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
+                                                    type="checkbox" value="" bot-feature="memes">
+                                                <label class="form-check-label inline-block text-gray-800"
+                                                    for="flexCheckChecked">
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="grid py-1 grid-cols-2 w-full">
+                                        <div class="">
+                                            <h1>Polling</h1>
+                                        </div>
+                                        <div>
+                                            <div class="form-check float-right">
+                                                <input
+                                                    class="form-check-input appearance-none h-5 w-10 rounded-sm bg-white checked:bg-green-600 bg-red-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
+                                                    type="checkbox" bot-feature="poll" value="poll">
+                                                <label class="form-check-label inline-block text-gray-800"
+                                                    for="flexCheckChecked">
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="grid py-1 grid-cols-2 w-full">
+                                        <div class="">
+                                            <h1>Ping(Latency)</h1>
+                                        </div>
+                                        <div>
+                                            <div class="form-check float-right">
+                                                <input
+                                                    class="form-check-input appearance-none h-5 w-10 rounded-sm bg-white checked:bg-green-600 bg-red-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
+                                                    type="checkbox" bot-feature="ping" value="ping">
+                                                <label class="form-check-label inline-block text-gray-800"
+                                                    for="flexCheckChecked">
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="grid py-1 grid-cols-1 w-full">
+                                        <div class="">
+                                            <h1 class="text-xl font-semibold">Misc</h1>
+                                        </div>
+                                    </div>
+                                    <div class="grid py-1 grid-cols-2 w-full">
+                                        <div class="">
+                                            <h1>Clear(Messages)</h1>
+                                        </div>
+                                        <div>
+                                            <div class="form-check float-right">
+                                                <input
+                                                    class="form-check-input appearance-none h-5 w-10 rounded-sm bg-white checked:bg-green-600 bg-red-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
+                                                    type="checkbox" bot-feature="clear" value="">
+                                                <label class="form-check-label inline-block text-gray-800"
+                                                    for="flexCheckChecked">
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="grid py-1 grid-cols-1 w-full">
+                                        <div class="">
+                                            <h1 class="text-xl font-semibold">Moderation</h1>
+                                        </div>
+                                    </div>
+                                    <div class="grid py-1 grid-cols-2 w-full">
+                                        <div class="">
+                                            <h1>Kick</h1>
+                                        </div>
+                                        <div>
+                                            <div class="form-check float-right">
+                                                <input
+                                                    class="form-check-input appearance-none h-5 w-10 rounded-sm bg-white checked:bg-green-600 bg-red-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
+                                                    type="checkbox" bot-feature="kick" value="">
+                                                <label class="form-check-label inline-block text-gray-800"
+                                                    for="flexCheckChecked">
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="grid py-1 grid-cols-2 w-full">
+                                        <div class="">
+                                            <h1>Ban</h1>
+                                        </div>
+                                        <div>
+                                            <div class="form-check float-right">
+                                                <input
+                                                    class="form-check-input appearance-none h-5 w-10 rounded-sm bg-white checked:bg-green-600 bg-red-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
+                                                    type="checkbox" bot-feature="ban" value="">
+                                                <label class="form-check-label inline-block text-gray-800"
+                                                    for="flexCheckChecked">
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="grid py-1 grid-cols-1 w-full">
+                                        <div class="w-full space-y-3 md:space-y-2">
+                                            <button onclick="compile()"
+                                                class="px-8 py-2 uppercase border-amethyst md:w-auto w-full rounded-md bg-amethyst">Compile
+                                            </button>
+                                            <button onclick="restart_bot()"
+                                                class="px-8 py-2 uppercase border-amethyst md:w-auto w-full rounded-md bg-amethyst">Restart</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="chart_div">
+                    <canvas id="cpu_chart_usage" class="w-full" style="height:50vh;"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="../assets/main.js"></script>
+
+</html>

@@ -2,9 +2,9 @@
 <html lang="en">
 
 <head>
-    <link rel="icon" href="./assets/logo.svg">
-    <link rel="stylesheet" href="./assets/main.css">
-    <link rel="stylesheet" href="./assets/tailwinds.css">
+    <link rel="icon" href="../assets/logo.svg">
+    <link rel="stylesheet" href="../assets/main.css">
+    <link rel="stylesheet" href="../assets/tailwinds.css">
 
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,6 +13,9 @@
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
 </head>
+<data id="bot-data" class="hidden">
+    <%= Data %>
+</data>
 
 <body class="bg-bray-700">
     <div class="flex grid grid-cols-12 flex-wrap w-full h-screen">
@@ -21,7 +24,7 @@
                 <li class="relative px-2">
                     <a class="flex space-x-4 items-center mt-2 text-sm px-3 py-3 overflow-hidden text-gray-200 text-ellipsis whitespace-nowrap rounded hover:text-amethyst hover:bg-bray-500 transition duration-300 ease-in-out"
                         href="../">
-                        <img src="./assets/logo.svg" class="w-8 h-8">
+                        <img src="../assets/logo.svg" class="w-8 h-8">
                         <span tip="JPanel, Cool name right?">JPanel</span>
                     </a>
                 </li>
@@ -117,12 +120,65 @@
                                 </h1>
                             </div>
                         </div>
+                        <div class="overflow-x-auto">
+                            <div class="inline-block min-w-full">
+                                <div class="overflow-hidden shadow-md sm:rounded-lg">
+                                    <table class="w-full">
+                                        <thead class="bg-bray-50 text-gray-300 bg-bray-700">
+                                            <tr>
+                                                <th scope="col"
+                                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left uppercase">
+                                                    Name
+                                                </th>
+                                                <th scope="col"
+                                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left uppercase">
+                                                    ID
+                                                </th>
+                                                <th scope="col"
+                                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left uppercase">
+                                                    Prefix
+                                                </th>
+                                                <th scope="col"
+                                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left uppercase">
+                                                    Created On
+                                                </th>
+                                                <th scope="col" class="relative py-3 px-6">
+                                                    <span class="sr-only">Edit</span>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="bots_table">
+                                            <tr
+                                                class="bg-white text-gray-300 dark:bg-bray-500 border-t border-bray-500">
+                                                <td
+                                                    class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                    Master Moderator
+                                                </td>
+                                                <td class="py-4 px-6 text-sm whitespace-nowrap">
+                                                    Bot ID
+                                                </td>
+                                                <td class="py-4 px-6 text-sm whitespace-nowrap">
+                                                    m!
+                                                </td>
+                                                <td class="py-4 px-2 text-sm font-medium text-right whitespace-nowrap">
+                                                    <a href="#"
+                                                        class="text-amethyst-600 uppercase hover:bg-amethyst-700 rounded-md hover:text-gray-300 py-2 px-10">Edit</a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                </div>
+                <div id="chart_div">
+                    <canvas id="cpu_chart_usage" class="w-full" style="height:50vh;"></canvas>
                 </div>
             </div>
         </div>
     </div>
 </body>
-<script src="./assets/main.js"></script>
+<script src="../assets/main.js"></script>
 
 </html>

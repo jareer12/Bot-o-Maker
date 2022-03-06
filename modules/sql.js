@@ -25,6 +25,122 @@ async function getBots() {
   });
 }
 
+async function updatePrefix(data) {
+  return await new Promise(function (res, rej) {
+    conn.query(
+      `UPDATE bots SET prefix = '${data.prefix}' WHERE client_id = '${data.id}'`,
+      function (err, data) {
+        if (err) {
+          console.log(err);
+          rej(false);
+        }
+        res(true);
+      }
+    );
+  });
+}
+
+async function updateToken(data) {
+  return await new Promise(function (res, rej) {
+    conn.query(
+      `UPDATE bots SET token = '${data.token}' WHERE client_id = '${data.id}'`,
+      function (err, data) {
+        if (err) {
+          console.log(err);
+          rej(false);
+        }
+        res(true);
+      }
+    );
+  });
+}
+
+async function toggleFeature(data) {
+  function opposite(current) {
+    if (current == 1) {
+      return 0;
+    } else {
+      return 1;
+    }
+  }
+  return await new Promise(function (res, rej) {
+    conn.query(
+      `UPDATE bots SET ${data.feature}_feature =' ${opposite(
+        data.currentState
+      )}' WHERE client_id = ${data.id}`,
+      function (err, data) {
+        if (err) {
+          console.log(err);
+          rej(false);
+        }
+        res(true);
+      }
+    );
+  });
+}
+
+async function getBotByID(id) {
+  return await new Promise(function (res, rej) {
+    conn.query(
+      `SELECT * FROM bots WHERE client_id = '${id}' LIMIT 1`,
+      function (err, data) {
+        if (err) {
+          rej(err);
+          return;
+        } else {
+          results = JSON.parse(JSON.stringify(data));
+          if (results.length > 0) {
+            res(results);
+          } else {
+            rej({ Success: false, Message: "Bot not found" });
+          }
+        }
+      }
+    );
+  });
+}
+
+getBotSize = new Promise((res, rej) => {
+  conn.query(
+    `SELECT COUNT(*) AS 'COUNT' FROM bots`,
+    async function (err, data) {
+      if (err) {
+        return false;
+      } else {
+        res(JSON.parse(JSON.stringify(data))[0]["COUNT"]);
+      }
+    }
+  );
+}).then((res) => {
+  return res;
+});
+
+getTableSize = new Promise((res, rej) => {
+  conn.query(
+    `SELECT table_schema, ROUND(SUM(data_length + index_length), 1) "Size" FROM information_schema.tables GROUP BY table_schema`,
+    async function (err, data) {
+      if (err) {
+        return false;
+      } else {
+        Tables = JSON.parse(JSON.stringify(data));
+        Tables.forEach((element) => {
+          if (element.table_schema == process.env.MYSQL_DATABASE) {
+            res(element);
+          }
+        });
+      }
+    }
+  );
+}).then((res) => {
+  return res;
+});
+
 module.exports = {
   getBots: getBots,
+  getBotSize: getBotSize,
+  getBotByID: getBotByID,
+  getTableSize: getTableSize,
+  updateToken: updateToken,
+  updatePrefix: updatePrefix,
+  toggleFeature: toggleFeature,
 };
