@@ -26,3 +26,4 @@ Edit the `.env` and fill in the required files.
 ## Preview
 
 ![Preview](./assets/preview1.png)
+![Preview](./assets/preview2.png)

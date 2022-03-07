@@ -1,13 +1,16 @@
 require("dotenv").config();
 
 const Compiler = require("./compiler/index");
+const system = require("system-commands");
+const bodyParser = require("body-parser");
+const Discord = require("discord.js");
+const fetch = require("node-fetch");
 const express = require("express");
 const mysql = require("mysql");
 const Path = require("path");
 const fs = require("fs");
 const pm2 = require("pm2");
 const os = require("os");
-const system = require("system-commands");
 const App = express();
 
 const conn = mysql.createConnection({
@@ -21,6 +24,9 @@ const SQL = require("./modules/sql");
 App.set("view engine", "html");
 App.engine("html", require("ejs").renderFile);
 App.use(express.static(Path.join(__dirname, "public")));
+
+App.use(bodyParser.urlencoded({ extended: false }));
+App.use(bodyParser.json());
 
 App.get("/toggle-feature/:id", async (req, res) => {
   if (req.params.id) {
@@ -203,7 +209,7 @@ App.get("/start/:id", async (req, res) => {
         });
         res.end(
           JSON.stringify({
-            Succes: true,
+            Success: true,
             Message: `Successfuly Started`,
           })
         );
@@ -225,11 +231,109 @@ App.get("/start/:id", async (req, res) => {
   }
 });
 
+App.post("/create", async (req, res) => {
+  if (req.body.token) {
+    if (req.body.prefix) {
+      let client = new Discord.Client({
+        intents: [Discord.Intents.FLAGS.GUILDS],
+      });
+      try {
+        client.login(req.body.token).catch((err) => {
+          res.end(
+            JSON.stringify({
+              Success: false,
+              Message: `${err}`,
+            })
+          );
+        });
+        client.on("ready", () => {
+          let Pack = {
+            name: client.user.id,
+            version: "1.0.0",
+            main: "index.js",
+            author: "Jareer",
+            license: "ISC",
+            dependencies: {
+              "discord.js": "^12.5.3",
+              "node-fetch": "^2.6.6",
+            },
+          };
+          fs.mkdir(`./bots/${client.user.id}`, function (err, data) {
+            fs.openSync(`./bots/${client.user.id}/index.js`, "w");
+            fs.open(
+              `./bots/${client.user.id}/package.json`,
+              "w",
+              function (err, data) {
+                fs.writeFileSync(
+                  `./bots/${client.user.id}/package.json`,
+                  JSON.stringify(Pack)
+                );
+                system(`cd ./bots/${client.user.id} && npm install`)
+                  .then((data) => {
+                    console.log(data);
+                  })
+                  .catch((err) => {
+                    console.log(err);
+                  });
+              }
+            );
+          });
+          Username = client.user.tag.split("#");
+          SQL.createBot({
+            created: new Date().getTime(),
+            token: req.body.token,
+            prefix: req.body.prefix,
+            name: Username[0],
+            tag: Username[1],
+            image_url: client.user.avatarURL(),
+            client_id: client.user.id,
+          })
+            .then((data) => {
+              system("");
+              res.end(
+                JSON.stringify({
+                  Success: true,
+                  Message: `Successfuly Added ${client.user.tag}`,
+                  Data: data,
+                })
+              );
+            })
+            .catch((err) => {
+              res.end(
+                JSON.stringify({
+                  Success: false,
+                  Message: `Error Occured ${err}`,
+                })
+              );
+            });
+        });
+      } catch (err) {
+        JSON.stringify({
+          Success: false,
+          Message: `${err}`,
+        });
+      }
+    } else {
+      JSON.stringify({
+        Success: false,
+        Message: `You forgot to enter a bot prefix`,
+      });
+    }
+  } else {
+    res.end(
+      JSON.stringify({
+        Success: false,
+        Message: `You forgot to enter a bot token`,
+      })
+    );
+  }
+});
+
 App.get("/list-bots", async (req, res) => {
   pm2.list((err, list) => {
     res.end(
       JSON.stringify({
-        Succes: true,
+        Success: true,
         Message: `Successfuly Start`,
         Data: list,
       })
@@ -245,7 +349,7 @@ App.get("/npm-install/:id", async (req, res) => {
           .then((output) => {
             res.end(
               JSON.stringify({
-                Succes: true,
+                Success: true,
                 Message: `Successfuly Installed`,
                 Data: {
                   Output: output,
@@ -256,7 +360,7 @@ App.get("/npm-install/:id", async (req, res) => {
           .catch((error) => {
             res.end(
               JSON.stringify({
-                Succes: false,
+                Success: false,
                 Message: `Error Occured`,
                 Data: {
                   Error: error,
@@ -290,7 +394,7 @@ App.get("/npm-init/:id", async (req, res) => {
           .then((output) => {
             res.end(
               JSON.stringify({
-                Succes: true,
+                Success: true,
                 Message: `Successfuly Installed`,
                 Data: {
                   Output: output,
@@ -301,7 +405,7 @@ App.get("/npm-init/:id", async (req, res) => {
           .catch((error) => {
             res.end(
               JSON.stringify({
-                Succes: false,
+                Success: false,
                 Message: `Error Occured`,
                 Data: {
                   Error: error,

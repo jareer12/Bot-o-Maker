@@ -79,6 +79,20 @@ async function toggleFeature(data) {
   });
 }
 
+async function createBot(data) {
+  return await new Promise(function (res, rej) {
+    conn.query(
+      `INSERT INTO bots(name, tag, prefix, created, client_id, image_url, token) VALUES('${data.name}', '${data.tag}', '${data.prefix}', '${data.created}', '${data.client_id}', '${data.image_url}', '${data.token}')`,
+      function (err, data) {
+        if (err) {
+          rej(err);
+        }
+        res(data);
+      }
+    );
+  });
+}
+
 async function getBotByID(id) {
   return await new Promise(function (res, rej) {
     conn.query(
@@ -139,6 +153,7 @@ module.exports = {
   getBots: getBots,
   getBotSize: getBotSize,
   getBotByID: getBotByID,
+  createBot: createBot,
   getTableSize: getTableSize,
   updateToken: updateToken,
   updatePrefix: updatePrefix,

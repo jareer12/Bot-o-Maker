@@ -175,7 +175,42 @@
                                     </div>
                                     <div class="grid py-1 grid-cols-1 w-full">
                                         <div class="">
-                                            <h1 class="text-xl font-semibold">Fun</h1>
+                                            <h1 class="text-xl text-amethyst font-semibold">Economy</h1>
+                                        </div>
+                                    </div>
+                                    <div class="grid py-1 grid-cols-2 w-full">
+                                        <div class="">
+                                            <h1>Beg</h1>
+                                        </div>
+                                        <div>
+                                            <div class="form-check float-right">
+                                                <input
+                                                    class="form-check-input appearance-none h-5 w-10 rounded-sm bg-white checked:bg-green-600 bg-red-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
+                                                    type="checkbox" value="" bot-feature="memes">
+                                                <label class="form-check-label inline-block text-gray-800"
+                                                    for="flexCheckChecked">
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="grid py-1 grid-cols-2 w-full">
+                                        <div class="">
+                                            <h1>Balance</h1>
+                                        </div>
+                                        <div>
+                                            <div class="form-check float-right">
+                                                <input
+                                                    class="form-check-input appearance-none h-5 w-10 rounded-sm bg-white checked:bg-green-600 bg-red-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
+                                                    type="checkbox" value="" bot-feature="memes">
+                                                <label class="form-check-label inline-block text-gray-800"
+                                                    for="flexCheckChecked">
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="grid py-1 grid-cols-1 w-full">
+                                        <div class="">
+                                            <h1 class="text-xl text-amethyst font-semibold">Fun</h1>
                                         </div>
                                     </div>
                                     <div class="grid py-1 grid-cols-2 w-full">
@@ -225,7 +260,7 @@
                                     </div>
                                     <div class="grid py-1 grid-cols-1 w-full">
                                         <div class="">
-                                            <h1 class="text-xl font-semibold">Misc</h1>
+                                            <h1 class="text-xl text-amethyst font-semibold">Misc</h1>
                                         </div>
                                     </div>
                                     <div class="grid py-1 grid-cols-2 w-full">
@@ -245,7 +280,7 @@
                                     </div>
                                     <div class="grid py-1 grid-cols-1 w-full">
                                         <div class="">
-                                            <h1 class="text-xl font-semibold">Moderation</h1>
+                                            <h1 class="text-xl text-amethyst font-semibold">Moderation</h1>
                                         </div>
                                     </div>
                                     <div class="grid py-1 grid-cols-2 w-full">
@@ -278,7 +313,21 @@
                                             </div>
                                         </div>
                                     </div>
-
+                                    <div class="grid py-1 grid-cols-2 w-full">
+                                        <div class="">
+                                            <h1>Clear</h1>
+                                        </div>
+                                        <div>
+                                            <div class="form-check float-right">
+                                                <input
+                                                    class="form-check-input appearance-none h-5 w-10 rounded-sm bg-white checked:bg-green-600 bg-red-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
+                                                    type="checkbox" bot-feature="clear" value="">
+                                                <label class="form-check-label inline-block text-gray-800"
+                                                    for="flexCheckChecked">
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="grid py-1 grid-cols-1 w-full">
                                         <div class="w-full space-y-3 md:space-y-2">
                                             <button onclick="compile()"
@@ -286,6 +335,8 @@
                                             </button>
                                             <button onclick="restart_bot()"
                                                 class="px-8 py-2 uppercase border-amethyst md:w-auto w-full rounded-md bg-amethyst">Restart</button>
+                                            <button onclick="start_bot()"
+                                                class="px-8 py-2 uppercase border-amethyst md:w-auto w-full rounded-md bg-amethyst">Start</button>
                                         </div>
                                     </div>
                                 </div>
@@ -294,7 +345,7 @@
                     </div>
                 </div>
                 <div id="chart_div">
-                    <canvas id="cpu_chart_usage" class="w-full" style="height:50vh;"></canvas>
+
                 </div>
             </div>
         </div>

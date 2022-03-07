@@ -23,6 +23,7 @@ if (document.getElementById("bot-data")) {
     BotData =
       JSON.parse(document.getElementById("bot-data").innerHTML || {}) || {};
     if (document.getElementById("token_display")) {
+      console.log(BotData.token);
       document.getElementById("token_display").value = BotData.token;
       document.getElementById("prefix_display").value = BotData.prefix;
     }
@@ -44,7 +45,11 @@ if (document.getElementById("bots_table")) {
                                                 class="bg-white text-gray-300 dark:bg-bray-500 border-t border-bray-500">
                                                 <td
                                                     class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                    ${element.name || "??"}
+                                                    ${
+                                                      element.name || "??"
+                                                    }#<span class='text-amethyst'>${
+          element.tag || "??"
+        }</span>
                                                 </td>
                                                 <td class="py-4 px-6 text-sm whitespace-nowrap">
                                                      ${
@@ -70,32 +75,40 @@ if (document.getElementById("bots_table")) {
     });
 }
 
-if (document.getElementById("myChart")) {
-  ctx = document.getElementById("myChart").getContext("2d");
-  myChart = new Chart(ctx, {
-    type: "line",
-    data: {
-      labels: Config.Data.Timestamps,
-      datasets: [
-        {
-          label: "Memory Used",
-          data: Config.Data.Usage,
-          backgroundColor: ["rgba(161, 74, 212, 0.2)"],
-          borderColor: ["rgba(161, 74, 212, 1)"],
-          borderWidth: 1,
+if (document.getElementById("cpu_chart")) {
+  fetch("../json/cpu-usage")
+    .then((response) => {
+      return response.json();
+    })
+    .then((myJson) => {
+      ctx = document.getElementById("cpu_chart").getContext("2d");
+      myChart = new Chart(ctx, {
+        type: "line",
+        data: {
+          labels: myJson.Data.Timestamp,
+          datasets: [
+            {
+              label: "Memory Used",
+              data: myJson.Data.Amount,
+              backgroundColor: ["rgba(161, 74, 212, 0.2)"],
+              borderColor: ["rgba(161, 74, 212, 1)"],
+              borderWidth: 1,
+            },
+          ],
         },
-      ],
-    },
-    options: {
-      fill: true,
-      scales: {
-        y: {
-          show: false,
-          beginAtZero: true,
+        options: {
+          fill: true,
+          scales: {
+            y: {
+              beginAtZero: true,
+            },
+            x: {
+              display: 0,
+            },
+          },
         },
-      },
-    },
-  });
+      });
+    });
 }
 
 function toggleFeature(feature) {
@@ -110,9 +123,6 @@ elms = document.getElementsByTagName("*");
 for (let i = 0; i < elms.length; i++) {
   const element = elms[i];
   if (element.getAttribute("bot-feature")) {
-    console.log(
-      BotData[`${element.getAttribute("bot-feature").toLowerCase()}_feature`]
-    );
     if (
       BotData[`${element.getAttribute("bot-feature").toLowerCase()}_feature`]
     ) {
@@ -177,46 +187,6 @@ function compile() {
         __SideBad(data.Message);
       }
     });
-}
-
-if (document.getElementById("cpu_chart_usage")) {
-  function render(data, stamp) {
-    chart_div.innerHTML = `<canvas id="cpu_chart_usage" class="w-full" style="height:50vh;"></canvas>`;
-    let ctx = document.getElementById("cpu_chart_usage").getContext("2d");
-    let myChart = new Chart(ctx, {
-      type: "line",
-      data: {
-        labels: stamp,
-        datasets: [
-          {
-            label: "Memory Used",
-            data: data,
-            backgroundColor: ["rgba(161, 74, 212, 0.2)"],
-            borderColor: ["rgba(161, 74, 212, 1)"],
-            borderWidth: 1,
-          },
-        ],
-      },
-      options: {
-        fill: true,
-        scales: {
-          y: {
-            show: false,
-            beginAtZero: true,
-          },
-        },
-      },
-    });
-  }
-  setInterval(() => {
-    fetch("../json/stats")
-      .then((response) => {
-        return response.json();
-      })
-      .then((myJson) => {
-        renderStats();
-      });
-  }, 976); // Fetch takes time so it's 976
 }
 
 function getReadableFileSizeString(fileSizeInBytes) {
@@ -300,6 +270,20 @@ function restart_bot() {
     });
 }
 
+function start_bot() {
+  fetch(`../start/${BotData.client_id}`)
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      if (data.Success) {
+        __SideGood(data.Message);
+      } else {
+        __SideBad(data.Message);
+      }
+    });
+}
+
 function statusToIcon(status) {
   if (status == "online") {
     return `<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none"
@@ -323,33 +307,42 @@ function statusToIcon(status) {
   }
 }
 
-fetch(`../list-bots`)
-  .then((response) => {
-    return response.json();
-  })
-  .then((data) => {
-    maxDisplay = 5;
-    current = 0;
-    document.getElementById("bot-list").innerHTML = null;
-    data.Data.forEach((element) => {
-      if (current >= maxDisplay) return;
-      document.getElementById(
-        "bot-list"
-      ).innerHTML += `<div class="text-gray-300 text-sm w-full px-3 py-3 grid grid-cols-2 bg-bray-500 rounded-md">
-                                <div class="flex items-center space-x-1">
-                                    <span class="text-emerald font-bold rounded-full">
-                                        ${statusToIcon(element.pm2_env.status)}
-                                    </span>
-                                    <h1 class="py-1">Bot Name<h1>
-                                </div>
-                                <div>
-                                    <a href="../manage/${
-                                      element.name
-                                    }" class="bg-amethyst rounded-md px-3 py-1 float-right">Manage</a>
-                                </div>
-                            </div>`;
-      current++;
+if (document.getElementById("bot-list")) {
+  fetch(`../list-bots`)
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      maxDisplay = 5;
+      current = 0;
+      document.getElementById("bot-list").innerHTML = null;
     });
-  });
+}
+
+function create_bot() {
+  token = document.getElementById("token").value;
+  prefix = document.getElementById("prefix").value;
+  fetch("../create", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      token: token,
+      prefix: prefix,
+    }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.Success) {
+        __SideGood(data.Message);
+      } else {
+        __SideBad(data.Message);
+      }
+    })
+    .catch((error) => {
+      __SideBad(data.Message);
+    });
+}
 
 renderStats();
