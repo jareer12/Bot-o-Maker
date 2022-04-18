@@ -2,7 +2,7 @@ SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
 
-CREATE TABLE `bots` (
+CREATE TABLE IF NOT EXISTS `bots` (
   `name` text NOT NULL,
   `token` varchar(125) NOT NULL,
   `created` bigint(20) NOT NULL,
