@@ -1,7 +1,0 @@
-{
-  "address_in": "14PqCsA7KMgseZMPwg6mJy754MtQkrgszu",
-  "address_out": "1H6ZZpRmMnrw8ytepV3BYwMjYYnEkWDqVP (single address)   {1H6ZZpRmMnrw8ytepV3BYwMjYYnEkWDqVP: 0.70, 1PE5U4temq1rFzseHHGE2L8smwHCyRbkx3: 0.30} (multiple addresses)",
-  "callback_url": "example.com/invoice/1234?payment_id=5678",
-  "priority": "default",
-  "status": "success"
-}
